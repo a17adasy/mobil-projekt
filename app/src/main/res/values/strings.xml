@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">ListViewJSONApp</string>
+    <string name="title_activity_mountain_details">MountainDetailsActivity</string>
+</resources>
