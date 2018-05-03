@@ -5,5 +5,9 @@
         android:id="@+id/refresh"
         android:orderInCategory="10"
         android:title="Refresh" />
+    <item
+        android:id="@+id/about"
+        android:orderInCategory="10"
+        android:title="About" />
 
 </menu>
