@@ -28,8 +28,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    List<String> mountainNames = new ArrayList<String>();
-    List<Mountain> mountains = new ArrayList<Mountain>();
+    List<String> dressingNames = new ArrayList<String>();
+    List<Dressing> allDressing = new ArrayList<Dressing>();
     ListView myListView;
     ArrayAdapter adapter;
 
@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int pos, long l) {
             Context context = getApplicationContext();
-            CharSequence text = mountains.get(pos).getText();
+            CharSequence text = allDressing.get(pos).getText();
             int duration = Toast.LENGTH_LONG;
 
             Toast toast = Toast.makeText(context, text, duration);
@@ -55,15 +55,13 @@ public class MainActivity extends AppCompatActivity {
 
             Intent intent = new Intent(getApplicationContext(), DetailsActivity.class);
             Bundle info = new Bundle();
-            String img = mountains.get(pos).getImage();
-            String name = mountains.get(pos).getName();
-            String loc = mountains.get(pos).getLoc();
-            int height = mountains.get(pos).getHeight();
+            String name = allDressing.get(pos).getName();
+            String loc = allDressing.get(pos).getLoc();
+            String comp = allDressing.get(pos).getCompany();
 
             info.putString("INFO_NAME", name);
             info.putString("INFO_LOC", loc);
-            info.putInt("INFO_HEIGHT", height);
-            info.putString("INFO_IMG", img);
+                info.putString("INFO_COMP", comp);
             intent.putExtras(info);
             myListView.getContext().startActivity(intent);
             }
@@ -85,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if(id == R.id.refresh) {
-            mountains.clear();
+            allDressing.clear();
             new FetchData().execute();
             Toast refreshed = Toast.makeText(this, "Refreshed", Toast.LENGTH_SHORT);
             refreshed.show();
@@ -112,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
 
             try {
                 // Construct the URL for the Internet service
-                URL url = new URL("http://wwwlab.iit.his.se/brom/kurser/mobilprog/dbservice/admin/getdataasjson.php?type=brom");
+                URL url = new URL("http://wwwlab.iit.his.se/a17adasy/xml/data.json");
 
                 // Create the request to the PHP-service, and open the connection
                 urlConnection = (HttpURLConnection) url.openConnection();
@@ -170,25 +168,26 @@ public class MainActivity extends AppCompatActivity {
                 JSONArray jArray = new JSONArray(o);
 
                 for(int i = 0; i < jArray.length(); i++){
-                    JSONObject mountain = jArray.getJSONObject(i);
+                    JSONObject dressing = jArray.getJSONObject(i);
 
-                    String name = mountain.getString("name");
-                    String location = mountain.getString("location");
-                    int height = mountain.getInt("size");
+                    String name = dressing.getString("name");
+                    String location = dressing.getString("location");
+                    String company = dressing.getString("company");
+                    int size = dressing.getInt("size");
+                    int cost = dressing.getInt("cost");
 
-                    String auxdata = mountain.getString("auxdata");
-                    JSONObject aux = new JSONObject(auxdata);
-                    String img = aux.getString("img");
+                    String auxdata = dressing.getString("auxdata");
 
-                    mountains.add(new Mountain(name, height, location, img));
-                    mountainNames.add(name);
+                    allDressing.add(new Dressing(name, location, company, size, cost, auxdata));
+                    dressingNames.add(name);
                 }
 
             } catch (JSONException e) {
                 Log.e("brom", "ERROR: " + e);
             }
 
-            adapter = new ArrayAdapter(getApplicationContext(), R.layout.list_item_textview, R.id.my_item_textview, mountainNames);
+
+            adapter = new ArrayAdapter(getApplicationContext(), R.layout.list_item_textview, R.id.my_item_textview, dressingNames);
             myListView = (ListView)findViewById(R.id.my_list);
             myListView.setAdapter(adapter);
 

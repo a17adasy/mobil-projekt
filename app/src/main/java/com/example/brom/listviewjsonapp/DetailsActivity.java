@@ -27,44 +27,17 @@ public class DetailsActivity extends AppCompatActivity {
         Bundle info = getIntent().getExtras();
         String name = info.getString("INFO_NAME");
         String loc = info.getString("INFO_LOC");
-        int height = info.getInt("INFO_HEIGHT");
-        String img = info.getString("INFO_IMG");
+        String comp = info.getString("INFO_COMP");
 
         TextView nameText = (TextView)findViewById(R.id.textView);
         TextView locText = (TextView)findViewById(R.id.textView2);
-        TextView heightText = (TextView)findViewById(R.id.textView3);
-        ImageView image = (ImageView)findViewById(R.id.mountainImage);
+        TextView compText = (TextView)findViewById(R.id.textView3);
 
 
         nameText.setText("Name: " + name);
         locText.setText("Location: " + loc);
-        heightText.setText("Height: " + height);
+        compText.setText("Company: " + comp);
 
-        class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
-            ImageView mountainImage;
-
-            public DownloadImageTask(ImageView mountainImage) {
-                this.mountainImage = mountainImage;
-            }
-
-            protected Bitmap doInBackground(String... urls) {
-                String urldisplay = urls[0];
-                Bitmap mountain = null;
-                try {
-                    InputStream in = new java.net.URL(urldisplay).openStream();
-                    mountain = BitmapFactory.decodeStream(in);
-                } catch (Exception e) {
-                    Log.e("Error", e.getMessage());
-                    e.printStackTrace();
-                }
-                return mountain;
-            }
-
-            protected void onPostExecute(Bitmap result) {
-                mountainImage.setImageBitmap(result);
-            }
-        }
-        new DownloadImageTask((ImageView)findViewById(R.id.mountainImage)).execute(img);
     }
 }
 
