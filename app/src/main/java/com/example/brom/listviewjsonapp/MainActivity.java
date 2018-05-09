@@ -58,10 +58,18 @@ public class MainActivity extends AppCompatActivity {
             String name = allDressing.get(pos).getName();
             String loc = allDressing.get(pos).getLoc();
             String comp = allDressing.get(pos).getCompany();
+            int size = allDressing.get(pos).getSize();
+            int cost = allDressing.get(pos).getCost();
+            String auxdata = allDressing.get(pos).getAuxdata();
+
 
             info.putString("INFO_NAME", name);
             info.putString("INFO_LOC", loc);
-                info.putString("INFO_COMP", comp);
+            info.putString("INFO_COMP", comp);
+            info.putInt("INFO_SIZE", size);
+            info.putInt("INFO_COST", cost);
+            info.putString("INFO_AUX", auxdata);
+
             intent.putExtras(info);
             myListView.getContext().startActivity(intent);
             }
