@@ -24,18 +24,18 @@ public class DetailsActivity extends AppCompatActivity {
         String auxdata = info.getString("INFO_AUX");
 
         TextView nameText = (TextView)findViewById(R.id.textView);
-        TextView locText = (TextView)findViewById(R.id.textView2);
-        TextView compText = (TextView)findViewById(R.id.textView3);
-        TextView sizeText = (TextView)findViewById(R.id.textView4);
-        TextView costText = (TextView)findViewById(R.id.textView5);
+        TextView sizeText = (TextView)findViewById(R.id.textView2);
+        TextView costText = (TextView)findViewById(R.id.textView3);
+        TextView locText = (TextView)findViewById(R.id.textView4);
+        TextView compText = (TextView)findViewById(R.id.textView5);
         TextView auxText = (TextView)findViewById(R.id.textView6);
 
 
-        nameText.setText("Name: " + name);
+        nameText.setText(name);
+        sizeText.setText("Size: " + size + "ml");
+        costText.setText("Cost: " + cost + "kr");
         locText.setText("Location: " + loc);
         compText.setText("Company: " + comp);
-        sizeText.setText("Size: " + size);
-        costText.setText("Cost: " + cost);
         auxText.setText("Review: " + auxdata);
 
     }

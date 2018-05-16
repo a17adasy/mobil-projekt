@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.view.menu.ListMenuItemView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -46,44 +47,36 @@ public class MainActivity extends AppCompatActivity {
         myListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int pos, long l) {
-            Context context = getApplicationContext();
-            CharSequence text = allDressing.get(pos).getText();
-            int duration = Toast.LENGTH_LONG;
 
-            Toast toast = Toast.makeText(context, text, duration);
-            toast.show();
-
-            Intent intent = new Intent(getApplicationContext(), DetailsActivity.class);
-            Bundle info = new Bundle();
-            String name = allDressing.get(pos).getName();
-            String loc = allDressing.get(pos).getLoc();
-            String comp = allDressing.get(pos).getCompany();
-            int size = allDressing.get(pos).getSize();
-            int cost = allDressing.get(pos).getCost();
-            String auxdata = allDressing.get(pos).getAuxdata();
+                Intent intent = new Intent(getApplicationContext(), DetailsActivity.class);
+                Bundle info = new Bundle();
+                String name = allDressing.get(pos).getName();
+                String loc = allDressing.get(pos).getLoc();
+                String comp = allDressing.get(pos).getCompany();
+                int size = allDressing.get(pos).getSize();
+                int cost = allDressing.get(pos).getCost();
+                String auxdata = allDressing.get(pos).getAuxdata();
 
 
-            info.putString("INFO_NAME", name);
-            info.putString("INFO_LOC", loc);
-            info.putString("INFO_COMP", comp);
-            info.putInt("INFO_SIZE", size);
-            info.putInt("INFO_COST", cost);
-            info.putString("INFO_AUX", auxdata);
+                info.putString("INFO_NAME", name);
+                info.putString("INFO_LOC", loc);
+                info.putString("INFO_COMP", comp);
+                info.putInt("INFO_SIZE", size);
+                info.putInt("INFO_COST", cost);
+                info.putString("INFO_AUX", auxdata);
 
-            intent.putExtras(info);
-            myListView.getContext().startActivity(intent);
+                intent.putExtras(info);
+                myListView.getContext().startActivity(intent);
             }
 
 
         });
-
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return super.onCreateOptionsMenu(menu);
-
     }
 
     @Override
@@ -100,8 +93,11 @@ public class MainActivity extends AppCompatActivity {
         }
 
         else if(id == R.id.about) {
-            Toast about = Toast.makeText(this, "ABOUT THIS", Toast.LENGTH_LONG);
-            about.show();
+
+            Intent intent = new Intent(this,AboutActivity.class);
+            this.startActivity(intent);
+            return true;
+
         }
 
         return super.onOptionsItemSelected(item);
@@ -183,7 +179,6 @@ public class MainActivity extends AppCompatActivity {
                     String company = dressing.getString("company");
                     int size = dressing.getInt("size");
                     int cost = dressing.getInt("cost");
-
                     String auxdata = dressing.getString("auxdata");
 
                     allDressing.add(new Dressing(name, location, company, size, cost, auxdata));

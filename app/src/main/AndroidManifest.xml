@@ -7,7 +7,7 @@
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="PROJEKTET"
+        android:label="Dressingälskaren"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -20,12 +20,18 @@
         </activity>
         <activity
             android:name=".DetailsActivity"
-            android:label="@string/title_activity_mountain_details"
+            android:label="Dressing Detaljer"
             android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.brom.listviewjsonapp.MainActivity" />
+        </activity>
+        <activity android:name=".AboutActivity"
+            android:label="Om appen"
+            android:parentActivityName=".MainActivity"
+            >
+
         </activity>
     </application>
 
